@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 class DbConnectionHandler:
     def __init__(self):
-        self.__connection_string = "sqlite///schema.db"
+        self.__connection_string = "sqlite:///schema.db"
         self.engine = self.__create_database_engine()
         self.session = None
 
@@ -12,7 +12,7 @@ class DbConnectionHandler:
         return engine
 
     def __enter__(self):
-        session_make = sessionmaker(bind=self.__engine)
+        session_make = sessionmaker(bind=self.engine)
         self.session = session_make()
         return self
     
